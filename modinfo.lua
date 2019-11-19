@@ -1,0 +1,15 @@
+name = "阿严" 
+description = "一个化学老师兼班主任" 
+author = "ENT" 
+version = "1.0" 
+api_version = 6 
+api_version_dst = 10 
+dst_compatible = true 
+priority = 0 
+dont_starve_compatible = false 
+reign_of_giants_compatible = false 
+all_clients_require_mod = true  
+icon_atlas = "modicon.xml" 
+icon = "modicon.tex" 
+forumthread = "" 
+server_filter_tags = { "character", "art", }

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<spriter_data scml_version="1.0" generator="BrashMonkey Spriter" generator_version="b5">
+    <folder id="0" name="books01">
+        <file id="0" name="books01/books01-1.png" width="64" height="64" pivot_x="0" pivot_y="1"/>
+        <file id="1" name="books01/books01-2.png" width="64" height="64" pivot_x="0" pivot_y="1"/>
+        <file id="2" name="books01/books01-3.png" width="64" height="64" pivot_x="0" pivot_y="1"/>
+        <file id="3" name="books01/books01-4.png" width="64" height="64" pivot_x="0" pivot_y="1"/>
+        <file id="4" name="books01/books01-5.png" width="64" height="64" pivot_x="0" pivot_y="1"/>
+        <file id="5" name="books01/books01-6.png" width="64" height="64" pivot_x="0" pivot_y="1"/>
+        <file id="6" name="books01/books01-7.png" width="64" height="64" pivot_x="0" pivot_y="1"/>
+        <file id="7" name="books01/books01-34switch.png" width="64" height="64" pivot_x="0" pivot_y="1"/>
+        <file id="8" name="books01/books01-67switch.png" width="64" height="64" pivot_x="0" pivot_y="1"/>
+        <file id="9" name="books01/books01-8.png" width="64" height="64" pivot_x="0" pivot_y="1"/>
+    </folder>
+    <entity id="0" name="ayanbooks">
+        <animation id="0" name="backpackplus" length="1000">
+            <mainline>
+                <key id="0">
+                    <object_ref id="0" name="books01-1" folder="0" file="0" abs_x="-83" abs_y="80" abs_pivot_x="0" abs_pivot_y="1" abs_angle="0" abs_scale_x="2.5" abs_scale_y="2.5" abs_a="1" timeline="0" key="0" z_index="0"/>
+                </key>
+            </mainline>
+            <timeline id="0" name="books01-1">
+                <key id="0" spin="0">
+                    <object folder="0" file="0" x="-83" y="80" angle="0" scale_x="2.5" scale_y="2.5"/>
+                </key>
+            </timeline>
+        </animation>
+        <animation id="1" name="fridgeplus" length="1000">
+            <mainline>
+                <key id="0">
+                    <object_ref id="0" name="books01-2" folder="0" file="1" abs_x="-85" abs_y="79" abs_pivot_x="0" abs_pivot_y="1" abs_angle="0" abs_scale_x="2.5" abs_scale_y="2.5" abs_a="1" timeline="0" key="0" z_index="0"/>
+                </key>
+            </mainline>
+            <timeline id="0" name="books01-2">
+                <key id="0" spin="0">
+                    <object folder="0" file="1" x="-85" y="79" angle="0" scale_x="2.5" scale_y="2.5"/>
+                </key>
+            </timeline>
+        </animation>
+        <animation id="2" name="fridgeminus" length="1000">
+            <mainline>
+                <key id="0">
+                    <object_ref id="0" name="books01-3" folder="0" file="2" abs_x="-85" abs_y="82" abs_pivot_x="0" abs_pivot_y="1" abs_angle="0" abs_scale_x="2.5" abs_scale_y="2.5" abs_a="1" timeline="0" key="0" z_index="0"/>
+                </key>
+            </mainline>
+            <timeline id="0" name="books01-3">
+                <key id="0" spin="0">
+                    <object folder="0" file="2" x="-85" y="82" angle="0" scale_x="2.5" scale_y="2.5"/>
+                </key>
+            </timeline>
+        </animation>
+        <animation id="3" name="work" length="1000">
+            <mainline>
+                <key id="0">
+                    <object_ref id="0" name="books01-4" folder="0" file="3" abs_x="-84" abs_y="79" abs_pivot_x="0" abs_pivot_y="1" abs_angle="0" abs_scale_x="2.5" abs_scale_y="2.5" abs_a="1" timeline="0" key="0" z_index="0"/>
+                </key>
+            </mainline>
+            <timeline id="0" name="books01-4">
+                <key id="0" spin="0">
+                    <object folder="0" file="3" x="-84" y="79" angle="0" scale_x="2.5" scale_y="2.5"/>
+                </key>
+            </timeline>
+        </animation>
+        <animation id="4" name="antiwork" length="1000">
+            <mainline>
+                <key id="0">
+                    <object_ref id="0" name="books01-5" folder="0" file="4" abs_x="-84" abs_y="81" abs_pivot_x="0" abs_pivot_y="1" abs_angle="0" abs_scale_x="2.5" abs_scale_y="2.5" abs_a="1" timeline="0" key="0" z_index="0"/>
+                </key>
+            </mainline>
+            <timeline id="0" name="books01-5">
+                <key id="0" spin="0">
+                    <object folder="0" file="4" x="-84" y="81" angle="0" scale_x="2.5" scale_y="2.5"/>
+                </key>
+            </timeline>
+        </animation>
+        <animation id="5" name="fightplus" length="1000">
+            <mainline>
+                <key id="0">
+                    <object_ref id="0" name="books01-6" folder="0" file="5" abs_x="-84" abs_y="81" abs_pivot_x="0" abs_pivot_y="1" abs_angle="0" abs_scale_x="2.5" abs_scale_y="2.5" abs_a="1" timeline="0" key="0" z_index="0"/>
+                </key>
+            </mainline>
+            <timeline id="0" name="books01-6">
+                <key id="0" spin="0">
+                    <object folder="0" file="5" x="-84" y="81" angle="0" scale_x="2.5" scale_y="2.5"/>
+                </key>
+            </timeline>
+        </animation>
+        <animation id="6" name="fightminus" length="1000">
+            <mainline>
+                <key id="0">
+                    <object_ref id="0" name="books01-7" folder="0" file="6" abs_x="-83" abs_y="79" abs_pivot_x="0" abs_pivot_y="1" abs_angle="0" abs_scale_x="2.5" abs_scale_y="2.5" abs_a="1" timeline="0" key="0" z_index="0"/>
+                </key>
+            </mainline>
+            <timeline id="0" name="books01-7">
+                <key id="0" spin="0">
+                    <object folder="0" file="6" x="-83" y="79" angle="0" scale_x="2.5" scale_y="2.5"/>
+                </key>
+            </timeline>
+        </animation>
+        <animation id="7" name="fridgeswitch" length="1000">
+            <mainline>
+                <key id="0">
+                    <object_ref id="0" name="books01-34switch" folder="0" file="7" abs_x="-85" abs_y="81" abs_pivot_x="0" abs_pivot_y="1" abs_angle="0" abs_scale_x="2.5" abs_scale_y="2.5" abs_a="1" timeline="0" key="0" z_index="0"/>
+                </key>
+            </mainline>
+            <timeline id="0" name="books01-34switch">
+                <key id="0" spin="0">
+                    <object folder="0" file="7" x="-85" y="81" angle="0" scale_x="2.5" scale_y="2.5"/>
+                </key>
+            </timeline>
+        </animation>
+        <animation id="8" name="fightswitch" length="1000">
+            <mainline>
+                <key id="0">
+                    <object_ref id="0" name="books01-67switch" folder="0" file="8" abs_x="-82" abs_y="84" abs_pivot_x="0" abs_pivot_y="1" abs_angle="0" abs_scale_x="2.5" abs_scale_y="2.5" abs_a="1" timeline="0" key="0" z_index="0"/>
+                </key>
+            </mainline>
+            <timeline id="0" name="books01-67switch">
+                <key id="0" spin="0">
+                    <object folder="0" file="8" x="-82" y="84" angle="0" scale_x="2.5" scale_y="2.5"/>
+                </key>
+            </timeline>
+        </animation>
+        <animation id="9" name="applicationform" length="1000">
+            <mainline>
+                <key id="0">
+                    <object_ref id="0" name="books01-8" folder="0" file="9" abs_x="-77" abs_y="92" abs_pivot_x="0" abs_pivot_y="1" abs_angle="360" abs_scale_x="2.5" abs_scale_y="2.5" abs_a="1" timeline="0" key="0" z_index="0"/>
+                </key>
+            </mainline>
+            <timeline id="0" name="books01-8">
+                <key id="0" spin="0">
+                    <object folder="0" file="9" x="-77" y="92" scale_x="2.5" scale_y="2.5"/>
+                </key>
+            </timeline>
+        </animation>
+    </entity>
+</spriter_data>
