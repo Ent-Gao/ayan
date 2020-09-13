@@ -49,7 +49,12 @@ function student_brain:OnStart()
     {	
 		WhileNode(function()
 				if self.inst.components.follower.leader == nil then
-					self.inst.components.follower:SetLeader(TheSim:FindFirstEntityWithTag("head teacher"))
+					local leader = TheSim:FindFirstEntityWithTag("head teacher")
+					if leader then 
+						self.inst.components.follower:SetLeader(leader)
+					else
+						self.inst:Remove()
+					end
 				end
 				return true
 			end,"leader test",
@@ -63,16 +68,18 @@ function student_brain:OnStart()
 			PriorityNode(
 			{
 				WhileNode(function()
-					if distsq(self.inst:GetPosition(),self.inst.components.mystand.location)>900 then
-						self.inst:PushEvent("toofar")
-					end 
-					if self.inst.components.container:IsOpen() then
+					--if distsq(self.inst:GetPosition(),self.inst.components.mystand.location)>900 then
+					--	self.inst:PushEvent("toofar")
+					--end 
+					if self.inst.components.container:IsOpen() or self.inst.isonboat then
 						return true
 					end
 				end,	"staystill",
 				FaceEntity(self.inst,GetFaceTargetFn, KeepFaceTargetFn)
 				),
-				Wander(self.inst,function(inst) return inst.components.mystand.location end, MAX_WANDER_DIST,{minwalktime = 0.3,randwalktime = 0.5,minwaittime =  1,randwaittime = 3})
+				
+				Wander(self.inst,function(inst) return inst.components.mystand.location end, MAX_WANDER_DIST,{minwalktime = 0.3,randwalktime = 0.5,minwaittime =  1,randwaittime = 3})				
+				
 			})
 		),
 		WhileNode(function() 

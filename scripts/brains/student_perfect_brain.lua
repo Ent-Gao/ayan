@@ -102,7 +102,7 @@ local function CombatAvoidanceFindEntityCheck(self)
         end
 end
 --***************************************************************************************************
---******************************************************************************************普通大脑+fight
+--******************************************************************************************普通大脑+fight+work
 --***************************************************************************************************
 local student_work_brain = Class(Brain, function(self, inst)
     Brain._ctor(self, inst)
@@ -114,8 +114,13 @@ function student_work_brain:OnStart()
         	
 		WhileNode(function()
 				if self.inst.components.follower.leader == nil then
-					self.inst.components.follower:SetLeader(TheSim:FindFirstEntityWithTag("head teacher"))
-				end 
+					local leader = TheSim:FindFirstEntityWithTag("head teacher")
+					if leader then 
+						self.inst.components.follower:SetLeader(leader)
+					else
+						self.inst:Remove()
+					end
+				end
 				if self.inst.components.mystand:IsCurrentlyStaying() == true then
 					return true
 				end
@@ -127,7 +132,7 @@ function student_work_brain:OnStart()
 					if distsq(self.inst:GetPosition(),self.inst.components.mystand.location)>121 then
 						self.inst:PushEvent("toofar")
 					end 
-					if self.inst.components.container:IsOpen() then
+					if self.inst.components.container:IsOpen() or self.inst.isonboat then
 						return true
 					end
 				end,	"staystill",

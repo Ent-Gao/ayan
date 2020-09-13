@@ -44,7 +44,7 @@ local actionhandlers =
         end),	
 	--ActionHandler(ACTIONS.PICKUP, "pickup"),
 	--ActionHandler(ACTIONS.PICK, "pickup"),
-	ActionHandler(ACTIONS.READ,"read"),
+	ActionHandler(ACTIONS.JUMPIN, "jumpin_pre"),
 }
 
 local events = 
@@ -52,7 +52,11 @@ local events =
     CommonHandlers.OnAttacked(),
     CommonHandlers.OnDeath(),
     CommonHandlers.OnAttack(),
-	CommonHandlers.OnFreeze(),
+    CommonHandlers.OnFreeze(),
+    CommonHandlers.OnHop(),
+	EventHandler("onsink", function(inst)         --沉船后直接死亡，后面可以考虑学习游泳技能后不死亡
+        inst.sg:GoToState("sink_dead")     
+    end),
 	EventHandler("locomote", function(inst) 
         if not inst.sg:HasStateTag("busy") then   
             local is_moving = inst.sg:HasStateTag("moving")
@@ -82,79 +86,45 @@ local events =
 
 local states =
 {
- State{
-        name = "book",
-        tags = {"doing"},
-        
-        onenter = function(inst)
+    State{
+        name = "sink_dead",
+        tags = {"busy", "nopredict", "nomorph", "drowning"},
+        onenter = function(inst, pushanim)
+            --ForceStopHeavyLifting(inst)
+            inst:ClearBufferedAction()
+
             inst.components.locomotor:Stop()
-	    inst.AnimState:PlayAnimation("action_uniqueitem_pre")
-	    -- inst.AnimState:PlayAnimation("action_uniqueitem_pre")
-         --- inst.AnimState:PushAnimation("book", false)
-           inst.AnimState:PlayAnimation("book",true)
-           --inst.AnimState:OverrideSymbol("book_open", "player_actions_uinqueitem", "book_open")
-           -- inst.AnimState:OverrideSymbol("book_closed", "player_actions_uinqueitem", "book_closed")
-        --   inst.AnimState:OverrideSymbol("book_open_pages", "player_actions_uinqueitem ", "book_open_pages")
-            --inst.AnimState:Hide("ARM_carry")   
-            inst.AnimState:Show("ARM_normal")
-           -- if inst.components.inventory.activeitem and inst.components.inventory.activeitem.components.book then
-              --  inst.components.inventory:ReturnActiveItem()
-            --end
-            inst.SoundEmitter:PlaySound("dontstarve/common/use_book")
+            inst.components.locomotor:Clear()
+
+            inst.AnimState:PlayAnimation("sink")
+            inst.AnimState:SetTime(60 * FRAMES)
+            inst.AnimState:Hide("plank")
+            inst.AnimState:Hide("float_front")
+            inst.AnimState:Hide("float_back")
         end,
-        
-        onexit = function(inst)
-         --   if inst.components.inventory:GetEquippedItem(EQUIPSLOTS.HANDS) then
-            --    inst.AnimState:Show("ARM_carry") 
-               -- inst.AnimState:Hide("ARM_normal")
-            --end
-            if inst.sg.statemem.book_fx then
-                inst.sg.statemem.book_fx:Remove()
-                inst.sg.statemem.book_fx = nil
-            end
-        end,
-        
-        timeline=
+
+        timeline =
         {
-            TimeEvent(0, function(inst)
-                local fxtoplay = "book_fx"
-             --   if inst.prefab == "waxwell" then
-              --      fxtoplay = "waxwell_book_fx" 
-             --   end       
-                local fx = SpawnPrefab(fxtoplay)
-                local pos = inst:GetPosition()
-                fx.Transform:SetRotation(inst.Transform:GetRotation())
-                fx.Transform:SetPosition( pos.x, pos.y - .2, pos.z ) 
-                inst.sg.statemem.book_fx = fx
+            TimeEvent(14 * FRAMES, function(inst)
+                inst.AnimState:Show("float_front")
+                inst.AnimState:Show("float_back")
             end),
 
-        --  TimeEvent(28*FRAMES, function(inst) 
-         --       if inst.prefab == "waxwell" then
-           --         inst.SoundEmitter:PlaySound("dontstarve/common/use_book_dark")
-           --     else
-          --          inst.SoundEmitter:PlaySound("dontstarve/common/use_book_light")
-          --      end
-         --   end),
-
-            TimeEvent(58*FRAMES, function(inst)
-                inst.SoundEmitter:PlaySound("dontstarve/common/book_spell")
-                inst:PerformBufferedAction()
-                inst.sg.statemem.book_fx = nil
-            end),
-
-            TimeEvent(62*FRAMES, function(inst) 
-                inst.SoundEmitter:PlaySound("dontstarve/common/use_book_close")
+            TimeEvent(16 * FRAMES, function(inst)
+                inst.components.container:DropEverything()
             end),
         },
-        
-        events=
+
+        events = 
         {
-            EventHandler("animover", function(inst)
-                inst.sg:GoToState("idle")
+            EventHandler("animover",function(inst)
+                if inst.AnimState:AnimDone() then
+                    inst:DoTaskInTime(.5, function() inst:Remove() end)
+                end
             end),
         },
-    },    
---------------------------------------------------------------------------------------------------------------------------
+    },
+
     State{
         name = "idle",
         tags = {"idle", "canrotate"},
@@ -197,7 +167,6 @@ local states =
     },
 
     State{
-        
         name = "funnyidle",
         tags = {"idle", "canrotate"},
         onenter = function(inst)
@@ -718,48 +687,11 @@ State{
             end ),
             
         },        
-    },   
-	
-	--[[State
-	{
-        name = "pickup",
-        tags = {"doing", "busy"},
-        
-        onenter = function(inst)
-            inst.components.locomotor:Stop()
-            inst.AnimState:PlayAnimation("pickup")
-            inst.sg:SetTimeout(6*FRAMES)
-        end,
-        timeline=
-        {
-            TimeEvent(4*FRAMES, function( inst )
-                inst.sg:RemoveStateTag("busy")
-            end),
-            TimeEvent(10*FRAMES, function( inst )
-            inst.sg:RemoveStateTag("doing")
-            inst.sg:AddStateTag("idle")
-            end),
-        },
-        ontimeout = function(inst)
-            inst:PerformBufferedAction()   
-        end,
-        events=
-        {
-            EventHandler("animover", function(inst) if inst.AnimState:AnimDone() then inst.sg:GoToState("idle") end end ),
-        },
     },
-	
-	State
-	{
-		name = "frozen",
-		tags = {"busy"},
-		
-        onenter = function(inst)
-            inst.AnimState:PlayAnimation("frozen")
-            inst.Physics:Stop()
-        end,
-    },	--]]
 }
+
+CommonStates.AddHopStates(states, true, { pre = "boat_jump_pre", loop = "boat_jump_loop", pst = "boat_jump_pst"})
+CommonStates.AddSinkAndWashAsoreStates(states)
 
 CommonStates.AddWalkStates(states,
 {

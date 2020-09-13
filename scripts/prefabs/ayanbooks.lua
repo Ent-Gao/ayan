@@ -20,6 +20,7 @@ function MakeABook(name,image)
         --trans:SetScale(2.5, 2.5, 2.5)
 
 		MakeInventoryPhysics(inst)
+		MakeInventoryFloatable(inst, "med", nil, 0.75)
 
 		local anim = inst.entity:AddAnimState()
 			anim:SetBank("ayanbooks")

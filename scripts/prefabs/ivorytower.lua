@@ -438,7 +438,7 @@ end
 
 local function changeclothes(owner)
     if owner.brainnum == 1 or owner.brainnum == 3 then 
-        if owner.combatlevel > 0 and owner.combatlevel <= 3 then
+        if owner.combatlevel >= 0 and owner.combatlevel <= 3 then
 		    owner.AnimState:OverrideSymbol("swap_body", "armor_grass", "swap_body")
         elseif owner.combatlevel > 3 and owner.combatlevel <= 7 then
             owner.AnimState:OverrideSymbol("swap_body", "armor_wood", "swap_body")

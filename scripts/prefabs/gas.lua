@@ -6,6 +6,7 @@ local assets =
 	Asset("ANIM", "anim/gas.zip"),
 	Asset("ANIM", "anim/firefighter_placement.zip"),
 	Asset( "ATLAS", "images/map_icons/gasminimap.xml" ),
+	Asset( "ATLAS", "images/inventoryimages/gas.xml"),
 }
 
 local prefabs = {}

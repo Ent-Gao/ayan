@@ -6,7 +6,7 @@ local prefabs = {}
 
 local start_inv = 
 	{
-	"student",
+	"student",--ruler",
 	}
 
 local function onbecamehuman(inst)

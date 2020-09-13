@@ -1,4 +1,3 @@
-
 local assets=
 {
 	Asset("ANIM","anim/wilton.zip"),
@@ -337,6 +336,7 @@ end
 --**************************************************************************************************************
 local function onsave(inst,data)
 	data.name = inst.name
+	data.isonboat = inst.isonboat
 	data.combatlevel = inst.combatlevel
 	data.brainnum = inst.brainnum
 	data.myfridgelevel = inst.myfridgelevel
@@ -349,6 +349,7 @@ end
 local function onpreload(inst,data)
 		inst.name=data.name
 		--inst:AddTag(data.name)
+		inst.isonboat = data.isonboat
 		inst.combatlevel = data.combatlevel
 		inst.myfridgelevel = data.myfridgelevel
 		inst.myfridge = data.myfridge
@@ -413,13 +414,72 @@ end
 local function fn()
 	local inst = CreateEntity()
 
-	inst.name="student"
+	--排列顺序是某一时刻我的qq好友的排列顺序，即“在线姓名拼音顺序+离线姓名拼音顺序”，加个小师妹，我再多占几个位置凑个整lol
+	local totalname =
+	{
+		[1] = "董浩",
+		[2] = "邓莉巾",
+		[3] = "丁香",
+		[4] = "方现伟",
+		[5] = "惠相云",
+		[6] = "胡竟争",
+		[7] = "江南宇",
+		[8] = "李春",
+		[9] = "李润泽",
+		[10] = "李思阳",
+		[11] = "李威",
+		[12] = "李响",
+		[13] = "李亚飞",
+		[14] = "马婷",
+		[15] = "梅蕾蕾",
+		[16] = "芮瑞",
+		[17] = "宋孟林",
+		[18] = "宋义若",
+		[19] = "苏宁",
+		[20] = "孙嘉玺",
+		[21] = "孙硕",
+		[22] = "孙召伟",
+		[23] = "王洪雨",
+		[24] = "汪涛",
+		[25] = "王婉露",
+		[26] = "王志邦",
+		[27] = "武文佩",
+		[28] = "吴肖男",
+		[29] = "徐炳坤",
+		[30] = "薛浩宇",
+		[31] = "杨金健",
+		[32] = "颜远远",
+		[33] = "尹晨阳",
+		[34] = "袁雨",
+		[35] = "张浩",
+		[36] = "张贺伍",
+		[37] = "张贺祥",
+		[38] = "赵军政",
+		[39] = "周宇",
+		[40] = "王璐瑶",
+		[41] = "陈琳",
+		[42] = "崔啸寒",
+		[43] = "刘怡辰",
+		[44] = "王琨",
+		[45] = "赵瑜",
+		[46] = "李伟",
+		[47] = "徐清扬",
+		[48] = "小师妹",
+		[49] = "高刘天",
+		[50] = "高刘天",
+	}
+
+	inst.name=totalname[math.random(1,#totalname)]
 	inst.brainnum=0                          --0：plain brain   1：fight brain   2：work brain   3：fight-work brain
 	inst.myfridge=false
 	inst.myfridgelevel=0
 	inst.containerlevel=0
 	inst.combatlevel=0
 	inst.isstudying=false
+	inst.isonboat=false
+
+	inst:ListenForEvent("got_on_platform", function() inst.isonboat = true end)
+	inst:ListenForEvent("got_off_platform", function() inst.isonboat = false end)
 	
 	inst:AddTag("student")
 	inst:AddTag("character")	
@@ -434,7 +494,7 @@ local function fn()
 	inst.entity:AddNetwork()
 
 	inst.entity:AddMiniMapEntity()
-		inst.MiniMapEntity:SetIcon( "ayan.tex" )
+		inst.MiniMapEntity:SetIcon( "student.tex" )
 
 	local sound = inst.entity:AddSoundEmitter()
 	
@@ -470,7 +530,12 @@ local function fn()
 	inst:AddComponent("homeseeker")
 	
 	inst:AddComponent("locomotor")
+	inst.components.locomotor:SetAllowPlatformHopping(true)
 	inst.components.locomotor.runspeed=6.5
+	inst.components.locomotor:EnableGroundSpeedMultiplier(true)
+	
+	inst:AddComponent("embarker")
+	inst:AddComponent("drownable")
 	
 	inst:AddComponent("follower")
 		inst.components.follower:SetLeader(TheSim:FindFirstEntityWithTag("head teacher"))

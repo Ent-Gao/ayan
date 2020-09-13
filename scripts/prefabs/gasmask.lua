@@ -52,6 +52,7 @@ local function fn()
         inst.entity:AddTransform()
         inst.entity:AddAnimState()
         MakeInventoryPhysics(inst)
+        MakeInventoryFloatable(inst, "med", 0.15)
 
         inst.AnimState:SetBank("gasmask")
         inst.AnimState:SetBuild("gasmask")
